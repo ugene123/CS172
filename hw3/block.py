@@ -11,7 +11,7 @@ class Block(Drawable):
     loc = self.getLocation()
     side = self.__length
     rect =  pygame.Rect(loc[0], loc[1], side, side)
-    pygame.draw.rect(surface, self.__color, rect, 2)
+    pygame.draw.rect(surface, self.__color, rect)
 
   def get_rect(self):
     loc = self.getLocation()

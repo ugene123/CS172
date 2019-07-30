@@ -1,3 +1,8 @@
+# Yevgeniy (Eugene) Yakovlev
+# yy459 - student id 14153285
+# CS172 - Homework 3 Assignment, PyGame
+# Summer 2019
+
 import pygame
 from ball import Ball
 from block import Block
@@ -10,7 +15,7 @@ import os
 pygame.init()
 pygame.font.init()
 surface = pygame.display.set_mode((400, 400))
-pygame.display.set_caption('CS 172 Game by Eugene Yakovlev')
+pygame.display.set_caption('CS172 Game by Eugene Yakovlev')
 #fpsClock = pygame.time.Clock()
 
 # Set up Reusable Colors
@@ -50,9 +55,9 @@ current_path = os.path.dirname(__file__) # Where your .py file is located
 background = pygame.image.load(os.path.join(current_path, 'background.png'))
 
 # Draw 9 Blocks
-for i in range(0, 3):
-  for j in range(0, 3):
-    block = Block(280 + (i * 30), 210 + (j * 30), 30, colorGreen)
+for i in range(0, 10):
+  for j in range(0, 10):
+    block = Block(280 + (i * 10), 200 + (j * 10), 10, colorGreen)
     drawables.append(block)
 
 
@@ -65,8 +70,45 @@ def intersect(rect1, rect2):
 
 
 # Begin Game
-run = 1
 while True:
+  if(abs(yv) > 0.0001):
+    loc = ball.getLocation()
+    if(loc[0] > 0 and loc[0] < 400):
+      # Ball is on the ground
+      if(loc[1] > 295):
+        yv = -R * yv
+        xv = eta * xv
+      else:
+        # Ball is in the air
+        yv = yv - g * dt
+
+      newloc = (loc[0] + (dt + xv), loc[1] - (dt + yv))
+      ball.setLocation(newloc)
+    else:
+      ball = Ball(50, 294, 5, colorRed)
+      drawables[0] = ball
+
+  ballObject = drawables[0] 
+  surface.blit(background, (0, 0))
+  for drawable in drawables:
+    if(drawable.getVisibility()):
+      if(isinstance(drawable, Block)):
+        ball_rect = ballObject.get_rect()
+        block_rect = drawable.get_rect()
+        
+        if(intersect(ball_rect, block_rect)):
+          drawable.setVisibility(False)
+          scoreCount += 1
+          drawables[1] = Text(10, 10, "Score: " + str(scoreCount), colorWhite)
+        else:
+          drawable.draw(surface)
+      else:
+        drawable.draw(surface)
+
+  pygame.display.update()
+  #fpsClock.tick(30)
+
+
   for event in pygame.event.get():
     if (event.type == pygame.QUIT) or (event.type == pygame.KEYDOWN and event.__dict__['key'] == pygame.K_q):
       pygame.quit()
@@ -82,42 +124,5 @@ while True:
       xv = (startLoc[0] - endLoc[0]) * 0.25
       yv = (startLoc[1] - endLoc[1]) * -1 * 0.25
 
-    if(abs(yv) > 0.0001):
-      loc = ball.getLocation()
-
-      # Ball is on the ground
-      if(loc[1] > 295):
-        yv = -R * yv
-        xv = eta * xv
-      else:
-        # Ball is in the air
-        yv = yv - g * dt
-
-      newloc = (loc[0] + (dt + xv), loc[1] - (dt + yv))
-      ball.setLocation(newloc)
     
-    ballObject = drawables[0] 
-    
-    print("run " + str(run))   
-    run += 1
-
-    surface.blit(background, (0, 0))
-    for drawable in drawables:
-      if(drawable.getVisibility()):
-        if(isinstance(drawable, Block)):
-          ball_rect = ballObject.get_rect()
-          block_rect = drawable.get_rect()
-          
-          if(intersect(ball_rect, block_rect)):
-            print('Set visibility to false')
-            drawable.setVisibility(False)
-            scoreCount += 1
-            drawables[1] = Text(10, 10, "Score: " + str(scoreCount), colorWhite)
-          else:
-            drawable.draw(surface)
-        else:
-          drawable.draw(surface)
-
-    pygame.display.update()
-
-    #fpsClock.tick(30)
+  
