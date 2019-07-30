@@ -9,9 +9,11 @@ class Ball(Drawable):
 
   def draw(self, surface):
     loc = self.getLocation()
+    intLoc = (int(loc[0]), int(loc[1]))
     
-    pygame.draw.circle(surface, self.__color, loc, self.__radius)
+    pygame.draw.circle(surface, self.__color, intLoc, self.__radius)
 
   def get_rect(self):
-    return None
+    loc = self.getLocation()
+    return pygame.Rect(loc[0] - self.__radius, loc[1] - self.__radius, self.__radius, self.__radius)
 

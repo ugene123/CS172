@@ -17,6 +17,9 @@ class Drawable(metaclass = abc.ABCMeta):
   def setVisibility(self, visible):
     self.__visible = visible
 
+  def getVisibility(self):
+    return self.__visible
+
   @abc.abstractmethod
   def draw(self, surface):
     pass

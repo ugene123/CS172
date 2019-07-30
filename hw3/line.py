@@ -1,8 +1,9 @@
 from drawable import Drawable
 import pygame
 
-class Line():
+class Line(Drawable):
   def __init__(self, start_pos, end_pos, color, width):
+    super().__init__(start_pos[0], start_pos[1])
     self.__start_pos = start_pos
     self.__end_pos = end_pos
     self.__color = color
