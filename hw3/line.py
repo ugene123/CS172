@@ -1,3 +1,8 @@
+# Yevgeniy (Eugene) Yakovlev
+# yy459 - student id 14153285
+# CS172 - Homework 3 Assignment, PyGame
+# Summer 2019
+
 from drawable import Drawable
 import pygame
 
