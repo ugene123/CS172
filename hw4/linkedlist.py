@@ -11,10 +11,10 @@ class LinkedList():
   def isEmpty(self):
     return self.__head == None
 
-  def appendNode(self, data):
+  def appendNode(self, data ):
     node = Node(data)
 
-    if(self.isEmpty()):
+    if self.isEmpty():
       self.__head = node
     else:
       current = self.__head
@@ -24,7 +24,7 @@ class LinkedList():
 
     print('\nSuccessfully added Employee!')
 
-  def removeNode(self, id):
+  def removeNode(self, id: str):
     current = self.__head
     previous = None
     found = False
@@ -52,7 +52,7 @@ class LinkedList():
       else:
           current = current.getNext()
 
-    return found
+    return found, current
 
   def __getitem__(self, index):   # used to suppport []
     current = self.__head
@@ -82,4 +82,5 @@ class LinkedList():
     while current.getNext() != None:
         counter += 1
         current = current.getNext()
+
     return counter
