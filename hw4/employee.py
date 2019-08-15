@@ -1,3 +1,8 @@
+# Yevgeniy (Eugene) Yakovlev 
+# ID: 14153285
+# CS 172, Summer 2019
+# Employee Payroll Homework Assignment #4
+
 class Employee():
 
   def __init__(self, id: str, hours: float, hourly_rate: float):

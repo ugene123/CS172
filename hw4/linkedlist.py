@@ -1,3 +1,8 @@
+# Yevgeniy (Eugene) Yakovlev 
+# ID: 14153285
+# CS 172, Summer 2019
+# Employee Payroll Homework Assignment #4
+
 from node import Node
 
 class LinkedList(): 
